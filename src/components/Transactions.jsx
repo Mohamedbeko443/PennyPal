@@ -6,7 +6,8 @@ import TransactionCard from './TransactionCard';
 
 
 export default function Transactions() {
-    const [empty, setEmpty] = useState(false)
+    const [empty, setEmpty] = useState(false);
+    
     return (
         <Flex mt={4} w={'full'} direction={'column'} boxShadow={'md'} >
             <Flex bg={'#4299e1'} w={'full'} py={5} px={8} justify={'space-between'} align={'center'}>
