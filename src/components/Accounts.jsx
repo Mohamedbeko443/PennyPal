@@ -6,10 +6,12 @@ import AccountCard from './AccountCard';
 
 export default function Accounts() {
     const [empty, setEmpty] = useState(false)
+
+
     return (
-        <Flex mt={2} w={'full'} direction={'column'} boxShadow={'md'}  >
+        <Flex mt={4}  w={'full'} direction={'column'} boxShadow={'md'}  >
             <Flex bg={'#4299e1'}  w={'full'} py={5} px={8} justify={'space-between'} align={'center'}>
-                <Text color={'white'} fontWeight={'bold'} fontSize={'2xl'}     > Accounts </Text>
+                <Text color={'white'} fontWeight={'bold'} fontSize={'2xl'} > Accounts </Text>
                 <Button bg={'black'}  > <GoPlus /> Account</Button>
             </Flex>
 
@@ -20,8 +22,7 @@ export default function Accounts() {
             }
 
 
-            
-                <VStack gap={4} mt={7}>
+                <VStack p={5}  gap={4} mt={7}>
                 <AccountCard/>
                 <AccountCard/>
                 <AccountCard/>

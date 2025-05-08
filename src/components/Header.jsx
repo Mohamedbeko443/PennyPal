@@ -12,6 +12,7 @@ export default function Header() {
       p={4}
       bg="white"
       boxShadow="sm"
+      mb={4}
     >
       <Heading as="h1" size="2xl" color="#4299e1">
       PennyPal

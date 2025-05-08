@@ -1,6 +1,7 @@
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import { FaWallet } from "react-icons/fa6";
 import { FaCircleArrowUp } from "react-icons/fa6";
+import { FaArrowCircleDown } from "react-icons/fa";
 
 
 export default function Balance() {
@@ -28,7 +29,7 @@ export default function Balance() {
                     </Flex>
 
                     <Flex gap={2} alignItems={'center'} >  
-                        <FaCircleArrowUp color="red" />
+                    <FaArrowCircleDown color="red" />
                         <Box>
                         <Text>Monthly Expenses</Text>
                         <Text>$0.00</Text>
