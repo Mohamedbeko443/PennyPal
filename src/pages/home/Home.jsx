@@ -1,3 +1,4 @@
+import Accounts from "../../components/Accounts";
 import Balance from "../../components/Balance";
 import Header from "../../components/Header";
 
@@ -6,6 +7,7 @@ export default function Home() {
     <>
       <Header/>
       <Balance/>
+      <Accounts/>
     </>
     
   )
