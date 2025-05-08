@@ -31,17 +31,16 @@ export default function Register() {
       direction="column"
       justify="center"
       align="center"
-      minH="100vh"
+      minH="100vh"  // Full viewport height
       px={4}
-      gap={8}
-      bg="#f8f9fa"
+      bg="#f8f9fa" 
     >
-      <Box  mt={8} textAlign="center" mb={4}>
-        <Heading mb={2} size="2xl" color="#2d3748">
-          PennyPal
+      <Box textAlign="center" mb={6} mt={8}>  {/* Added top margin */}
+        <Heading mb={2} size="2xl" color="#2d3748"> 
+        PennyPal
         </Heading>
-        <Text color="#718096">
-          Start managing your finances today
+        <Text color="#718096"> 
+          Create an account to get started
         </Text>
       </Box>
 
@@ -51,59 +50,51 @@ export default function Register() {
         bg="white"
         w="100%"
         maxW="400px"
+        minH={{ base: "auto", md: "500px" }}  // Responsive height
         direction="column"
         alignItems="flex-start"
         p={8}
         borderRadius="lg"
         boxShadow="0 4px 6px -1px rgba(0, 0, 0, 0.1)"
         gap={6}
+        mb={8}  // Added bottom margin
       >
         <Box>
           <Heading size="lg" mb={1} color="#2d3748">Create Account</Heading>
           <Text fontSize="sm" color="#718096">
-            Fill in your details to get started
+            Enter your details to sign up
           </Text>
         </Box>
 
         <Field.Root w="100%">
-          <Field.Label color="#4a5568">
-            Full Name <Field.RequiredIndicator />
+          <Field.Label color="#4a5568"> 
+            Name <Field.RequiredIndicator />
           </Field.Label>
-          <Input
-            name="name"
-            placeholder="John Doe"
-            value={formik.values.name}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            autoComplete="name"
+          <Input 
+            name="name" 
+            placeholder="John Doe" 
+            {...formik.getFieldProps('name')}
             isInvalid={formik.touched.name && !!formik.errors.name}
-            borderColor="#e2e8f0"
-            _hover={{ borderColor: "#cbd5e0" }}
           />
           {formik.touched.name && formik.errors.name && (
-            <Text fontSize="sm" color="#e53e3e" mt={1}>
+            <Text fontSize="sm" color="#e53e3e" mt={1}> 
               {formik.errors.name}
             </Text>
           )}
         </Field.Root>
 
         <Field.Root w="100%">
-          <Field.Label color="#4a5568">
+          <Field.Label color="#4a5568"> 
             Email <Field.RequiredIndicator />
           </Field.Label>
-          <Input
-            name="email"
-            placeholder="demo@example.com"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            autoComplete="email"
+          <Input 
+            name="email" 
+            placeholder="name@example.com" 
+            {...formik.getFieldProps('email')}
             isInvalid={formik.touched.email && !!formik.errors.email}
-            borderColor="#e2e8f0"
-            _hover={{ borderColor: "#cbd5e0" }}
           />
           {formik.touched.email && formik.errors.email && (
-            <Text fontSize="sm" color="#e53e3e" mt={1}>
+            <Text fontSize="sm" color="#e53e3e" mt={1}> 
               {formik.errors.email}
             </Text>
           )}
@@ -116,13 +107,8 @@ export default function Register() {
           <PasswordInput
             name="password"
             placeholder="•••••••••"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            autoComplete="new-password"
+            {...formik.getFieldProps('password')}
             isInvalid={formik.touched.password && !!formik.errors.password}
-            borderColor="#e2e8f0"
-            _hover={{ borderColor: "#cbd5e0" }}
           />
           {formik.touched.password && formik.errors.password && (
             <Text fontSize="sm" color="#e53e3e" mt={1}>
@@ -138,13 +124,8 @@ export default function Register() {
           <PasswordInput
             name="confirmPassword"
             placeholder="•••••••••"
-            value={formik.values.confirmPassword}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            autoComplete="new-password"
+            {...formik.getFieldProps('confirmPassword')}
             isInvalid={formik.touched.confirmPassword && !!formik.errors.confirmPassword}
-            borderColor="#e2e8f0"
-            _hover={{ borderColor: "#cbd5e0" }}
           />
           {formik.touched.confirmPassword && formik.errors.confirmPassword && (
             <Text fontSize="sm" color="#e53e3e" mt={1}>
@@ -156,29 +137,29 @@ export default function Register() {
         <Button
           type="submit"
           w="full"
-          bg="#4299e1"
+          bg="#4299e1" 
           color="white"
-          _hover={{ bg: "#3182ce" }}
+          _hover={{ bg: "#3182ce" }} 
           size="lg"
           isLoading={formik.isSubmitting}
           loadingText="Creating account..."
-          mt={2}
+          mt="auto"  // Pushes button to bottom
         >
-          Sign Up
+          Create account
         </Button>
 
-        <Text fontSize="sm" textAlign="center" w="full" mt={2} color="#718096">
+        <Text fontSize="sm" textAlign="center" w="full" color="#718096">
           Already have an account?{' '}
-          <Button
+          <Button 
             as={Link}
             to="/login"
-            variant="link"
-            color="#4299e1"
+            variant="link" 
+            color="#4299e1" 
             _hover={{ textDecoration: 'underline' }}
             fontWeight="normal"
             mb={1}
           >
-            Log in
+            Sign in
           </Button>
         </Text>
       </Flex>
