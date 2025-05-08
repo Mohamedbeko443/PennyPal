@@ -1,14 +1,17 @@
-import { Button, HStack } from "@chakra-ui/react"
+import { BrowserRouter as Router } from "react-router-dom"
+import AppRoutes from "./routes/AppRoutes"
+import { Toaster } from "@/components/ui/toaster"
+
 
 function App() {
-  
+
 
   return (
     <>
-      <HStack>
-      <Button onClick={()=> alert('hello chakra')} >Click me</Button>
-      <Button>Click me</Button>
-      </HStack>
+      <Toaster />
+      <Router>
+        <AppRoutes />
+      </Router>
     </>
   )
 }
