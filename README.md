@@ -1,0 +1,2 @@
+# PennyPal
+Smart Budget Manager 
