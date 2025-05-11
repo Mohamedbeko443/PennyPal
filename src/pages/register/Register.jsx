@@ -3,9 +3,20 @@ import { PasswordInput } from "@/components/ui/password-input";
 import { useFormik } from "formik";
 import { signupSchema } from "../../schemas/schemas";
 import { Link } from "react-router-dom";
+import axios from 'axios';
+import { toaster } from "@/components/ui/toaster"
+import useAuthStore from "../../store/Auth";
+import useUserStore from "../../store/user";
+import { useNavigate } from 'react-router-dom';
+
 
 
 export default function Register() {
+      const navigate = useNavigate();
+      const base = import.meta.env.VITE_BASE_URL;
+      const {setToken }  = useAuthStore();
+      const {setUser}  = useUserStore();
+
 
   const formik = useFormik({
     initialValues: {
@@ -15,12 +26,25 @@ export default function Register() {
       confirmPassword: ''
     },
     validationSchema: signupSchema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       try {
-        console.log(values);
+        const response = await axios.post(`${base}/api/auth/register`,{name : values.name , password : values.password , email : values.email});
+
+        setToken(response.data.accessToken);
+        setUser(response.data.user);
+
+        toaster.create({
+          title : `welcome !`,
+          type : 'success'
+        })
+        navigate('/');
       }
-      catch {
-        console.log('Error in signup');
+      catch (err) {
+        toaster.create({
+          title : 'something went wrong! please try again later',
+          type : 'error'
+        });
+        console.log(err);
       }
     },
   });
@@ -31,11 +55,11 @@ export default function Register() {
       direction="column"
       justify="center"
       align="center"
-      minH="100vh"  // Full viewport height
+      minH="100vh"  
       px={4}
       bg="#f8f9fa" 
     >
-      <Box textAlign="center" mb={6} mt={8}>  {/* Added top margin */}
+      <Box textAlign="center" mb={6} mt={8}>  
         <Heading mb={2} size="2xl" color="#2d3748"> 
         PennyPal
         </Heading>
@@ -50,14 +74,14 @@ export default function Register() {
         bg="white"
         w="100%"
         maxW="400px"
-        minH={{ base: "auto", md: "500px" }}  // Responsive height
+        minH={{ base: "auto", md: "500px" }}  
         direction="column"
         alignItems="flex-start"
         p={8}
         borderRadius="lg"
         boxShadow="0 4px 6px -1px rgba(0, 0, 0, 0.1)"
         gap={6}
-        mb={8}  // Added bottom margin
+        mb={8}  
       >
         <Box>
           <Heading size="lg" mb={1} color="#2d3748">Create Account</Heading>
@@ -143,9 +167,10 @@ export default function Register() {
           size="lg"
           isLoading={formik.isSubmitting}
           loadingText="Creating account..."
-          mt="auto"  // Pushes button to bottom
+          mt="auto"  
+          disabled={formik.isSubmitting}
         >
-          Create account
+          {formik.isSubmitting ? <Spinner size={'md'} /> : 'Create account'}
         </Button>
 
         <Text fontSize="sm" textAlign="center" w="full" color="#718096">

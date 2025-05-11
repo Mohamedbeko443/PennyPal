@@ -3,27 +3,51 @@ import { PasswordInput } from "@/components/ui/password-input";
 import { useFormik } from "formik";
 import { loginSchema } from "../../schemas/schemas";
 import { toaster } from "@/components/ui/toaster"
+import { Link } from "react-router-dom";
+import axios from 'axios';
+import useAuthStore from "../../store/Auth";
+import useUserStore from "../../store/user";
+import { useNavigate } from 'react-router-dom';
+
+
+
 
 
 
 export default function Login() {
 
-  const formik = useFormik({
+
+        const base = import.meta.env.VITE_BASE_URL;
+        const {setToken} = useAuthStore();
+        const {setUser} = useUserStore();
+        const navigate = useNavigate();
+
+    const formik = useFormik({
     initialValues: {
         email: '',
         password: '',
     },
     validationSchema: loginSchema,
-    onSubmit:  (values) => {
+    onSubmit:  async (values) => {
         try {
+            const response = await axios.post(`${base}/api/auth/login`,{email : values.email , password : values.password});
+            
+            setToken(response.data.accessToken);
+            setUser(response.data.user);
+
             toaster.create({
-              title:'attempt to login',
-              type : 'success'
-            })
-            console.log(values);
+                title : `welcome back `,
+                type : 'success'
+            });
+
+            navigate('/');
         }
-        catch  {
-                console.log('test catch block')
+        catch (err) {
+                console.log(err);
+                toaster.create({
+                    title : 'something went wrong! please try again later.',
+                    type : 'error'
+                });
         }
     },
 });
@@ -120,15 +144,18 @@ export default function Login() {
             _hover={{ bg: "#3182ce" }} 
             size="lg"
             isLoading={formik.isSubmitting}
+            disabled={formik.isSubmitting}
             loadingText="Signing in..."
             mt={2}
         >
-            Sign In
+            {formik.isSubmitting ? <Spinner size={'md'}/> :  "Sign In"}
         </Button>
 
         <Text   fontSize="sm" textAlign="center" w="full" mt={2} color="#718096">
             Don't have an account?{' '}
             <Button 
+                as={Link}
+                to='/register'
                 variant="link" 
                 color="#4299e1" 
                 _hover={{ textDecoration: 'underline' }}

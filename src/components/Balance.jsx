@@ -2,9 +2,14 @@ import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import { FaWallet } from "react-icons/fa6";
 import { FaCircleArrowUp } from "react-icons/fa6";
 import { FaArrowCircleDown } from "react-icons/fa";
+import useFinancialStore from "../store/finance";
 
 
 export default function Balance() {
+    const {totalBalance , monthlyIncome , monthlyExpenses} = useFinancialStore();
+    console.log(totalBalance);
+
+
     return (
         <Flex w={'full'} direction={'column'} boxShadow={'md'}  >
                 <Box w={'full'} py={3} px={8} bg={'#4299e1'}  >
@@ -14,7 +19,7 @@ export default function Balance() {
                     </Flex>
                 </Box>
                 <Box py={3} px={8} >
-                    <Heading size={'3xl'} >$0.00</Heading>
+                    <Heading size={'3xl'} >${totalBalance}</Heading>
                 </Box>
 
                 <Flex py={3} px={8} gap={10} justify={'flex-start'} >
@@ -24,7 +29,7 @@ export default function Balance() {
 
                         <Box>
                         <Text>Monthly Income</Text>
-                        <Text>$0.00</Text>
+                        <Text>${monthlyIncome}</Text>
                         </Box>
                     </Flex>
 
@@ -32,7 +37,7 @@ export default function Balance() {
                     <FaArrowCircleDown color="red" />
                         <Box>
                         <Text>Monthly Expenses</Text>
-                        <Text>$0.00</Text>
+                        <Text>${monthlyExpenses}</Text>
                         </Box>
                     </Flex>
                 </Flex>
